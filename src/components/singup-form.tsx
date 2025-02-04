@@ -54,9 +54,10 @@ export function SignupForm() {
       });
 
       router.push("/login");
-    } catch (err: any) {
+    } catch (err) {
+      console.log(err);
       return toast({
-        description: err.message,
+        description: "Lỗi",
       });
     }
   };

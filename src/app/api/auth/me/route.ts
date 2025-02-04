@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
 
     const me = await prisma.user.findUnique({
       where: {
-        id: data.id,
+        id: data,
       },
       omit: {
         password: true,
@@ -17,7 +17,8 @@ export async function GET(request: NextRequest) {
       { message: "Lấy dữ liệu thành công", data: me },
       { status: 200 }
     );
-  } catch (err: any) {
-    return NextResponse.json({ message: err.message }, { status: 500 });
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json({ message: "loi" }, { status: 500 });
   }
 }

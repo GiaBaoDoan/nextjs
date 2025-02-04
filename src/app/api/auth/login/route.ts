@@ -51,9 +51,10 @@ export async function POST(request: Request) {
     response.cookies.set("token", token, { httpOnly: true, path: "/" });
     return response;
   } catch (err) {
+    console.log(err);
     return NextResponse.json(
       {
-        message: "Sever error",
+        message: "Loi",
       },
       {
         status: 500,

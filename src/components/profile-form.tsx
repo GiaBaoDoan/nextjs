@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,7 +16,6 @@ import {
 import { Input } from "@/components/ui/input";
 import AuthServices from "@/services/auth";
 import { useToast } from "@/hooks/use-toast";
-import { UserResType } from "@/types/user";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
@@ -51,9 +49,10 @@ export function ProfileForm() {
         description: `✅ ${data.message}`,
       });
       router.push("/profile");
-    } catch (err: any) {
+    } catch (err) {
+      console.log(err);
       toast({
-        description: err.message,
+        description: "Lỗi",
       });
     }
   };

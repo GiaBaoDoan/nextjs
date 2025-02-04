@@ -1,5 +1,3 @@
-import { Account } from "@/types/account";
-
 export type UserResType = {
   id: string; // ObjectId dưới dạng string
   username: string;
