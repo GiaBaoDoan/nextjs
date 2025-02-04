@@ -17,7 +17,7 @@ const Logout = () => {
       });
 
       router.push("/login");
-    } catch (err: any) {
+    } catch (err) {
       handleApiError(err);
     }
   };

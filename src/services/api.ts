@@ -33,7 +33,7 @@ export async function apiRequest<T>(
       process.env.NODE_ENV === "production"
         ? process.env.NEXT_PUBLIC_BASE_URL_PRODUCTION
         : process.env.NEXT_PUBLIC_BASE_URL
-    }/${url}`,
+    }/api/${url}`,
     {
       ...options,
     }

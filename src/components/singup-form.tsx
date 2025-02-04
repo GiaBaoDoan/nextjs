@@ -19,16 +19,17 @@ import { useRouter } from "next/navigation";
 import UserServices from "@/services/auth";
 import Link from "next/link";
 import { handleApiError } from "@/lib/utils";
+import { regexEmail } from "@/lib/constants";
 
 const formSchema = z.object({
-  username: z.string().min(3, {
-    message: "Username must be at least 2 characters.",
+  username: z.string().min(1, {
+    message: "Tên không để trống.",
   }),
-  password: z.string().min(3, {
-    message: "Password must be at least 3 characters.",
+  password: z.string().min(5, {
+    message: "Mật khẩu không để trống.",
   }),
-  email: z.string().min(3, {
-    message: "Email must be at least 3 characters.",
+  email: z.string().email({
+    message: "Email không hợp lệ",
   }),
 });
 
@@ -62,6 +63,7 @@ export function SignupForm() {
   return (
     <Form {...form}>
       <form
+        noValidate
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-5 w-[300px]"
       >
