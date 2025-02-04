@@ -4,7 +4,7 @@ export async function GET() {
   try {
     const response = NextResponse.json(
       {
-        message: "Đăng xuất thành công thanh cong",
+        message: "Đăng xuất thành công",
       },
       {
         status: 200,

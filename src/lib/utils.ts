@@ -9,6 +9,6 @@ export function cn(...inputs: ClassValue[]) {
 export const handleApiError = (error: any) => {
   toast({
     title: "SOS",
-    description: `❌ ${error?.payload?.message}` || "Lỗi không xác định",
+    description: `❌ ${error?.payload?.message || "Lỗi không xác định"}`,
   });
 };
