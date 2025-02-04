@@ -30,7 +30,7 @@ export async function apiRequest<T>(
 
   const res = await fetch(
     `${
-      process.env.NODE_ENV
+      process.env.NODE_ENV === "production"
         ? process.env.NEXT_PUBLIC_BASE_URL_PRODUCTION
         : process.env.NEXT_PUBLIC_BASE_URL
     }/${url}`,
