@@ -18,7 +18,7 @@ export async function apiRequest<T>(
   url: string,
   body?: any
 ): Promise<ApiResponse<T>> {
-  let options: RequestInit = {
+  const options: RequestInit = {
     method,
     headers: {
       "Content-Type": "Application/json",
