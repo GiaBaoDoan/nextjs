@@ -42,17 +42,15 @@ export function ProfileForm() {
   const router = useRouter();
 
   const onSubmit = async (values: FormType) => {
-    console.log(values);
     try {
       const data = await AuthServices.login(values);
       toast({
         description: `✅ ${data.message}`,
       });
       router.push("/profile");
-    } catch (err) {
-      console.log(err);
+    } catch (err: any) {
       toast({
-        description: "Lỗi",
+        description: err.message,
       });
     }
   };

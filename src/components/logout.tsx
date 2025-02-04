@@ -12,8 +12,10 @@ const Logout = () => {
       toast({
         description: res.message,
       });
-    } catch (err) {
-      console.log(err);
+    } catch (err: any) {
+      toast({
+        description: err.message,
+      });
     }
   };
 
