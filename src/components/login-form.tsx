@@ -17,6 +17,8 @@ import { Input } from "@/components/ui/input";
 import AuthServices from "@/services/auth";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { handleApiError } from "@/lib/utils";
+import Link from "next/link";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -27,10 +29,10 @@ const formSchema = z.object({
   }),
 });
 
-type FormType = z.infer<typeof formSchema>;
+export type LoginTypeForm = z.infer<typeof formSchema>;
 
-export function ProfileForm() {
-  const form = useForm<FormType>({
+export function LoginForm() {
+  const form = useForm<LoginTypeForm>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
@@ -41,17 +43,15 @@ export function ProfileForm() {
   const { toast } = useToast();
   const router = useRouter();
 
-  const onSubmit = async (values: FormType) => {
+  const onSubmit = async (values: LoginTypeForm) => {
     try {
-      const data = await AuthServices.login(values);
+      const res = await AuthServices.login(values);
       toast({
-        description: `✅ ${data.message}`,
+        description: `✅ ${res.payload.message}`,
       });
       router.push("/profile");
-    } catch (err: any) {
-      toast({
-        description: err.message,
-      });
+    } catch (err) {
+      handleApiError(err);
     }
   };
   return (
@@ -87,9 +87,15 @@ export function ProfileForm() {
           )}
         />
         <Button className="w-full" type="submit">
-          Submit
+          Đăng nhập
         </Button>
       </form>
+      <div className="mt-4 text-sm">
+        Chưa có tài khoản ?{" "}
+        <Link className="underline" href="/signup">
+          Đăng ký
+        </Link>
+      </div>
     </Form>
   );
 }

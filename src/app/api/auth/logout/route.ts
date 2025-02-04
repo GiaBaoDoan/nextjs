@@ -4,7 +4,7 @@ export async function GET() {
   try {
     const response = NextResponse.json(
       {
-        message: "Logout thanh cong",
+        message: "Đăng xuất thành công thanh cong",
       },
       {
         status: 200,
@@ -14,10 +14,9 @@ export async function GET() {
     response.cookies.set("token", "", { httpOnly: true, expires: new Date(0) });
     return response;
   } catch (err) {
-    console.log(err);
     return NextResponse.json(
       {
-        message: "Loi",
+        message: "Internal sever error",
       },
       {
         status: 500,

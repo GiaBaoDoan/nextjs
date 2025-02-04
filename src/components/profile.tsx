@@ -1,6 +1,6 @@
 "use client";
 
-import { useToast } from "@/hooks/use-toast";
+import { handleApiError } from "@/lib/utils";
 import AuthServices from "@/services/auth";
 import { UserResType } from "@/types/user";
 import { useEffect, useState } from "react";
@@ -8,15 +8,12 @@ import { useEffect, useState } from "react";
 const Profile = () => {
   const [profile, setProfile] = useState<UserResType>();
 
-  const { toast } = useToast();
   const getProfile = async () => {
     try {
       const res = await AuthServices.me();
-      setProfile(res.data);
+      setProfile(res.payload.data);
     } catch (err) {
-      toast({
-        description: err.message,
-      });
+      handleApiError(err);
     }
   };
 

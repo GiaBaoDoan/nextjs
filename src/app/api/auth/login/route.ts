@@ -54,7 +54,7 @@ export async function POST(request: Request) {
     console.log(err);
     return NextResponse.json(
       {
-        message: "Loi",
+        message: "Lỗi từ sever",
       },
       {
         status: 500,

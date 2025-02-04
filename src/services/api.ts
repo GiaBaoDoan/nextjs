@@ -1,25 +1,47 @@
 import { BASE_URL } from "@/lib/constants";
 import { ApiResponse } from "@/types/type";
 
-type Method = "POST" | "GET" | "DELETE" | "PUT";
+export class CustomError extends Error {
+  status: number;
+  payload: {
+    message: string;
+  };
+  constructor({ status, payload }: { status: number; payload: any }) {
+    super("Custom error");
+    this.status = status;
+    this.payload = payload;
+  }
+}
 
 export async function apiRequest<T>(
-  method: Method,
+  method: "POST" | "GET" | "DELETE" | "PUT",
   url: string,
-  values?: any
+  body?: any
 ): Promise<ApiResponse<T>> {
-  const res = await fetch(`${BASE_URL}/${url}`, {
+  let options: RequestInit = {
     method,
-    body: values ? JSON.stringify(values) : undefined,
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "Application/json",
     },
+  };
+
+  if (body) {
+    options.body = JSON.stringify(body);
+  }
+
+  const res = await fetch(`${BASE_URL}/${url}`, {
+    ...options,
   });
 
-  const data = await res.json();
+  const payload = await res.json();
+
+  const data = {
+    status: res.status,
+    payload,
+  };
 
   if (!res.ok) {
-    throw new Error(data.message || "Error in request");
+    throw new CustomError(data);
   }
 
   return data;
