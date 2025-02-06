@@ -19,7 +19,6 @@ import { useRouter } from "next/navigation";
 import UserServices from "@/services/auth";
 import Link from "next/link";
 import { handleApiError } from "@/lib/utils";
-import { regexEmail } from "@/lib/constants";
 
 const formSchema = z.object({
   username: z.string().min(1, {

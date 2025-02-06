@@ -1,3 +1,4 @@
+import { BASE_URL } from "@/lib/constants";
 import { ApiResponse } from "@/types/type";
 
 export class CustomError extends Error {
@@ -28,16 +29,9 @@ export async function apiRequest<T>(
     options.body = JSON.stringify(body);
   }
 
-  const res = await fetch(
-    `${
-      process.env.NODE_ENV === "production"
-        ? process.env.NEXT_PUBLIC_BASE_URL_PRODUCTION
-        : process.env.NEXT_PUBLIC_BASE_URL
-    }/api/${url}`,
-    {
-      ...options,
-    }
-  );
+  const res = await fetch(`${BASE_URL}/api/${url}`, {
+    ...options,
+  });
 
   const payload = await res.json();
 

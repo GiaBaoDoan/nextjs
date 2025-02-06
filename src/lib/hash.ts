@@ -1,9 +1,9 @@
+import { saltRounds } from "@/lib/constants";
 import bcrypt from "bcrypt";
-const saltRounds = 10;
 
-export const hashPassword = async (password: string) => {
-  const newPassword = await bcrypt.hash(password, saltRounds);
-  return newPassword;
+export const hash = async (TypeString: string) => {
+  const hashString = await bcrypt.hash(TypeString, saltRounds);
+  return hashString;
 };
 
 export const comparePassword = async (

@@ -4,7 +4,8 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
   const path = request.nextUrl.pathname;
-  const isPublicPath = path === "/signup" || path === "/login";
+  const isPublicPath =
+    path === "/signup" || path === "/login" || path === "/verify";
   if (token && isPublicPath) {
     return NextResponse.redirect(new URL("/profile", request.nextUrl));
   }
@@ -15,5 +16,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/login", "/signup", "/profile", "/"], // Middleware chỉ chạy trên `/dashboard`
+  matcher: ["/login", "/signup", "/profile", "/", "/verify"], // Middleware chỉ chạy trên `/dashboard`
 };

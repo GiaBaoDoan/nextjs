@@ -13,7 +13,7 @@ const Profile = () => {
       const res = await AuthServices.me();
       setProfile(res.payload.data);
     } catch (err) {
-      handleApiError(err);
+      console.log(err);
     }
   };
 

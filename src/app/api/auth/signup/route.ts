@@ -1,6 +1,7 @@
 // app/api/users/route.ts
 
-import { hashPassword } from "@/lib/hash";
+import { hash } from "@/lib/hash";
+import { sendEmail } from "@/lib/mailer";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
@@ -34,13 +35,21 @@ export async function POST(request: Request) {
       );
     }
 
-    const newPassword = await hashPassword(password);
+    const hashedPassword = await hash(password);
+
     const newUser = await prisma.user.create({
       data: {
-        email,
         username,
-        password: newPassword,
+        email,
+        password: hashedPassword,
       },
+    });
+
+    // send link to email and verify
+    await sendEmail({
+      email,
+      emailType: "VERIFY",
+      userId: newUser.id,
     });
 
     return NextResponse.json(
@@ -51,7 +60,7 @@ export async function POST(request: Request) {
       { status: 201 }
     );
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     return NextResponse.json(
       { message: "Internal server error" },
       { status: 500 }

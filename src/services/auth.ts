@@ -10,6 +10,8 @@ const AuthServices = {
     apiRequest<UserResType>("POST", "auth/login", body),
   logout: async () => apiRequest("GET", "auth/logout"),
   me: async () => apiRequest<UserResType>("GET", "auth/me"),
+  verify: async (body: { token: string }) =>
+    apiRequest("POST", "auth/verify", body),
 };
 
 export default AuthServices;
